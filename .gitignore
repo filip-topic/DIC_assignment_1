@@ -1,0 +1,16 @@
+# Ignore dataset and outputs
+/data/
+/output/
+
+# Python artifacts
+__pycache__/
+/*.py[cod]
+*.egg-info/
+
+# Virtualenv
+venv/
+.env
+
+# IDE/editor settings
+*.swp
+.vscode/
