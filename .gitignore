@@ -1,6 +1,8 @@
 # Ignore dataset and outputs
-/data/
-/output/
+/data/*
+/output/*
+/data/.gitkeep
+/output/.gitkeep
 
 # Python artifacts
 __pycache__/
