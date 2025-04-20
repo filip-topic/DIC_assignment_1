@@ -1,4 +1,5 @@
 # Ignore dataset and outputs
+/output_backup/
 /data/*
 /output/*
 !/data/.gitkeep
