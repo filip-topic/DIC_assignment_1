@@ -24,14 +24,5 @@ To activate the virtual environment, run (.ps1 in the end is important) (make su
 
 To test locally, run:
 
-$env:MRJOB_RUNNER = 'inline'
+python .\mr_runner.py -r inline
 
-python .\mr_runner.py
-
-
-
-To run on Hadoop, run:
-
-$env:MRJOB_RUNNER = 'hadoop'
-
-python .\mr_runner.py

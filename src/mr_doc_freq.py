@@ -7,19 +7,25 @@ from timeit import default_timer as timer
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# loads stopwords into a set for faster lookup
-with open("./stopwords.txt", "r") as f:
-    STOPWORDS = set(f.read().split())
 
 TOKEN_RE = re.compile(r"[\s\t\d()\[\]{}.!?,;:+=\-_'\"`~#@&*%€$§\\/]+")
 
 # converts to lowercase, splits by delimeter regex and filters out stopwords and tokens of length 1
-def tokenize(text):
+def tokenize(text, STOPWORDS):
     tokens = TOKEN_RE.split(text.lower())
     return [t for t in tokens if t not in STOPWORDS and len(t) > 1]
 
 # MapReduce job that calculates how many times each token appearns in each category
 class MRDocFreq(MRJob):
+
+    def configure_args(self):
+        super().configure_args()
+        self.add_file_arg('--stopwords', default='stopwords.txt')
+
+    def mapper_init(self):
+        # load stopwords once when the mapper starts
+        with open(self.options.stopwords, 'r', encoding='utf-8') as f:
+            self.stopwords = set(f.read().split())
 
     #read each line in the data
     def mapper(self, _, line):
@@ -32,7 +38,7 @@ class MRDocFreq(MRJob):
                 print("Missing category:", review)
             else:
                 # represent tokens as a set - to avoid duplication of tokens in a sentence
-                tokens = set(tokenize(review_text))
+                tokens = set(tokenize(review_text, self.stopwords))
                 # count the occurance of this category (1)
                 yield ('__TOTAL__', category), 1
                 for token in tokens:
