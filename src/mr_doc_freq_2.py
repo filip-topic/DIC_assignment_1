@@ -19,6 +19,7 @@ def tokenize(text, STOPWORDS):
 # MapReduce job that calculates how many times each token appearns in each category
 class MRDocFreq(MRJob):
 
+    # compress the data
     JOBCONF = {
         "mapreduce.output.fileoutputformat.compress": "true",
         "mapreduce.output.fileoutputformat.compress.codec":

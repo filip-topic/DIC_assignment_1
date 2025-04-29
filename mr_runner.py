@@ -14,6 +14,8 @@ import sys
 import glob
 import subprocess
 
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-r','--runner',
                     default=os.getenv('MRJOB_RUNNER','hadoop'))
@@ -23,15 +25,24 @@ parser.add_argument('--hadoop-streaming-jar',
 parser.add_argument('--stopwords',
                     default='stopwords.txt',
                     help='path to the stopwords file')
+parser.add_argument('--data_path',
+                    default=os.path.join(base_dir, 'data'),
+                    help='path to the folder where the data is')
+parser.add_argument('--output_path',
+                    default=os.path.join(base_dir, 'output'),
+                    help='path to the folder where you want outputs of the whole pipeline to be saved')
+parser.add_argument('--source_path',
+                    default=os.path.join(base_dir, 'src'),
+                    help='path to the folder where the source code is')
+
 args, _ = parser.parse_known_args()
 
 def main():
 
     #base paths
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    data_dir = os.path.join(base_dir, 'data')
-    src_dir = os.path.join(base_dir, 'src')
-    output_dir = os.path.join(base_dir, 'output')
+    data_dir = args.data_path
+    src_dir = args.source_path
+    output_dir = args.output_path
 
     runner = args.runner 
     streaming_jar = args.streaming_jar
