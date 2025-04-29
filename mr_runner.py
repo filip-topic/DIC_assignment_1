@@ -51,7 +51,7 @@ def main():
     df_output = os.path.join(output_dir, 'df_counts.txt')
     cmd1 = [
         sys.executable,
-        os.path.join(src_dir, 'mr_doc_freq.py'),
+        os.path.join(src_dir, 'mr_doc_freq_2.py'),
         '-r', runner]
     if streaming_jar:
         cmd1 += ['--hadoop-streaming-jar', streaming_jar]
@@ -77,7 +77,7 @@ def main():
     chi_output = os.path.join(output_dir, 'output.txt')
     cmd2 = [
         sys.executable,
-        os.path.join(src_dir, 'mr_chi_square.py'),
+        os.path.join(src_dir, 'mr_chi_square_2.py'),
         '-r', runner]
     if streaming_jar:
         cmd2 += ['--hadoop-streaming-jar', streaming_jar]

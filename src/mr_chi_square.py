@@ -3,6 +3,7 @@ from mrjob.step import MRStep
 from collections import defaultdict
 import sys
 
+
 class MRChiSquare(MRJob):
 
     #overwrite the parent configure_args
